@@ -9,4 +9,12 @@ describe "StaticPages" do
       expect(page).to have_content('Sample App')
     end
   end
+
+  describe "Help Page" do
+
+    it "should have the content 'Sample App'" do
+      visit '/static_pages/help'
+      expect(page).to have_content('Help')
+    end
+  end
 end
