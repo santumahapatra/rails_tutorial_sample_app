@@ -117,6 +117,7 @@ describe "Authentication" do
 
     describe "as non-admin user" do
       let(:user) { FactoryGirl.create(:user) }
+      let(:new_user) { FactoryGirl.attributes_for(:user) }
       let(:non_admin) { FactoryGirl.create(:user) }
 
       before { valid_signin non_admin, no_capybara: true }
@@ -124,6 +125,16 @@ describe "Authentication" do
       describe "submitting a DELETE request to the Users#destroy action" do
         before { delete user_path(user) }
         specify { expect(response).to redirect_to(users_url) }
+      end
+
+      describe "visiting new URL" do
+        before { get new_user_path }
+        specify { expect(response).to redirect_to(root_url) }
+      end
+
+      describe "visiting create URL" do
+        before { post users_path new_user }
+        specify { expect(response).to redirect_to(root_url) }
       end
     end
   end
